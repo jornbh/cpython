@@ -33,7 +33,7 @@ jobs:
   dependsOn: Prebuild
   #condition: and(succeeded(), eq(dependencies.Prebuild.outputs['tests.run'], 'true'))
   # bpo-39837: macOS tests on Azure Pipelines are disabled
-  condition: false
+  condition: true
 
   variables:
     testRunTitle: '$(build.sourceBranchName)-macos'
@@ -49,7 +49,8 @@ jobs:
 - job: Ubuntu_CI_Tests
   displayName: Ubuntu CI Tests
   dependsOn: Prebuild
-  condition: and(succeeded(), eq(dependencies.Prebuild.outputs['tests.run'], 'true'))
+  # condition: and(succeeded(), eq(dependencies.Prebuild.outputs['tests.run'], 'true'))
+  condition: false 
 
   pool:
     vmImage: ubuntu-18.04
