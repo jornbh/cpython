@@ -33,7 +33,7 @@ jobs:
   dependsOn: Prebuild
   # condition: and(succeeded(), eq(dependencies.Prebuild.outputs['tests.run'], 'true'))
   # bpo-39837: macOS tests on Azure Pipelines are disabled
-   condition: true
+  condition: true
 
   variables:
     testRunTitle: '$(build.sourceBranchName)-macos'
