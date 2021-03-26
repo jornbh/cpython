@@ -25,3 +25,13 @@ steps:
     testRunTitle: $(testRunTitle)
     platform: $(testRunPlatform)
   condition: succeededOrFailed()
+
+
+
+- script: cp -r * $(Build.StagingDirectory)
+  displayName: 'Copy all to artifact directory'
+
+- task: PublishPipelineArtifact@1 
+  inputs:
+    path: "$(Build.ArtifactStagingDirectory)"
+    artifact: artifact-py-macOSX
