@@ -4,7 +4,7 @@ steps:
   fetchDepth: 5
 
 #- script: ./configure --with-pydebug --with-openssl=/usr/local/opt/openssl --prefix=/opt/python-azdev
-- script: ./configure --with-pydebug --with-openssl=$(Build.StagingDirectory)/local/opt/openssl --prefix=$(Build.StagingDirectory)/python-azdev
+- script: ./configure --with-pydebug --with-openssl=$(Build.StagingDirectory)/local/opt/openssl --prefix=$(Agent.BuildDirectory)/my_deps/python-azdev  --enable-framework=$(Agent.BuildDirectory)/my_deps/Library/Frameworks
   displayName: 'Configure CPython (debug)'
 
 
@@ -37,6 +37,10 @@ steps:
 
 
 - script: cp -r * $(Build.StagingDirectory)
+  displayName: 'Copy all to artifact directory'
+
+
+- script: cp -r $(Agent.BuildDirectory)/* $(Build.StagingDirectory)
   displayName: 'Copy all to artifact directory'
 
 - task: PublishPipelineArtifact@1 
