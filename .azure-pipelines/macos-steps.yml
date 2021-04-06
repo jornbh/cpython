@@ -4,7 +4,7 @@ steps:
   fetchDepth: 5
 
 #- script: ./configure --with-pydebug --with-openssl=/usr/local/opt/openssl --prefix=/opt/python-azdev
-- script: ./configure --with-pydebug --with-openssl=/usr/local/opt/openssl --prefix=./python-azdev
+- script: ./configure --with-pydebug --with-openssl=/usr/local/opt/openssl --prefix=$(Build.ArtifactStagingDirectory)/python-azdev
   displayName: 'Configure CPython (debug)'
 
 - script: make -j4
