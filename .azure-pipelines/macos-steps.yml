@@ -7,6 +7,13 @@ steps:
 - script: ./configure --with-pydebug --with-openssl=$(Build.StagingDirectory)/local/opt/openssl --prefix=$(Build.StagingDirectory)/python-azdev
   displayName: 'Configure CPython (debug)'
 
+
+
+- task: PublishPipelineArtifact@1 
+  inputs:
+    path: "$(Build.ArtifactStagingDirectory)"
+    artifact: artifact-py-dependencies-macOSX 
+
 - script: make -j4
   displayName: 'Build CPython'
 
