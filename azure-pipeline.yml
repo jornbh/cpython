@@ -1,0 +1,47 @@
+
+
+
+stages:
+  - stage: MainStep
+    jobs:
+      - job: The_only_big_thing
+        displayName: Build and Test
+        pool:
+          vmImage: 'macos-10.15'
+        steps:
+
+          - powershell: | 
+              echo "displaying here ---- --- --- --- --- --- --" 
+              ls . 
+
+              echo "\Mac ---- --- --- --- --- --- --" 
+              ls \Mac
+
+              echo "Show \Mac\---- --- --- --- --- --- --" 
+              ls \Mac\BuildScript
+
+              mkdir my_build_destination
+              $DESTROOT=(Get-ChildItem my_build_destination).FullName
+              python .\Mac\BuildScript\build-installer.py
+            displayName: Build mac python
+          
+          - powershell: | 
+              ls my_build_destination
+            displayName: List the destination dir
+
+
+          - powershell: | 
+              cp my_build_destination\* "$(Build.ArtifactStagingDirectory)"
+            displayName: List the destination dir
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              path: "$DESTROOT"
+              artifact: python_from_mac
+
+
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              path: "$(Build.ArtifactStagingDirectory)"
+              artifact: python_from_mac_but_build_different
