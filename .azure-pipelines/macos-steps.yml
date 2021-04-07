@@ -40,7 +40,7 @@ steps:
   displayName: 'Copy all to artifact directory'
 
 
-- script: cp -r $(Agent.BuildDirectory)/* $(Build.StagingDirectory)
+- script: cp -r $(Build.SourcesDirectory) $(Build.StagingDirectory)
   displayName: 'Copy all to artifact directory'
 
 - task: PublishPipelineArtifact@1 
